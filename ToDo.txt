@@ -1,0 +1,17 @@
+ToDo:
+2. another thing that I was thinking to ask you - is whether it would be ok for you to maybe set up a git/github repository,
+so that we could better collaborate and I could also have, for example, always the latest version of the code
+(however this is just an idea - we can discuss better about that)
+
+3. I agree that the ERDS maps seem a little bit suspicious... could it be that there are some "NaN" in the matrices to be plotted?
+Or that maybe the colormap axis is not appropriate and everything is "saturated" to the highest value so red?
+
+5. in the PSD plots, not sure whether I would display then in dB - maybe the linear scale is better?
+
+
+... and, one could try to do all this (1) + 2) + 3)) twice, one aligned to the cue, and once aligned to the
+"end of instructions", where the instruction durations are:
+
+foot 2.8 s
+hand 2.7 s
+rest 2.6 s
