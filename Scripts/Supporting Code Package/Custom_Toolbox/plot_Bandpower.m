@@ -39,7 +39,7 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
     data_class_2 = permute(data_class_2, [3, 1, 2]);
 
     %Estimating PSD and visualizing it
-    fig = figure();
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
     subplotmask = [2 3 4 5 6 8 9 10 11 12 13 14 16 17 18 20];
     for electrode = 1 : size(data, 2)
         subplot(3, 7, subplotmask(electrode));
@@ -52,7 +52,7 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
         xlabel('Frequency [Hz]');
         ylabel('Power density [Db]');
         xlim([0 40]);
-        %legend('Class 1','Classe 2');
+        legend('Class 1','Classe 2', 'Location', 'southoutside', 'Orientation', 'horizontal');
     end
     stuff = 0;
     saveas(fig, strcat(fullfile('../Plots/', fname)), 'jpeg');

@@ -153,7 +153,7 @@ plot_MRCP(data_AC21_mrcp, triggers_AC21, poss_trig, trials_AC21, ...
     channels, window_mrcp, fs, 'MRCP for patient AC21, Time of cue');
 
 %Plotting topoplot
-fig = figure();
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
 cnt_max = 10;
 for cnt_tp = 1 : cnt_max
     subplot(2, 5, cnt_tp);
@@ -162,8 +162,8 @@ for cnt_tp = 1 : cnt_max
     topoplot(data_AC21_erds(triggers_AC21(1) + round(fs * (cnt_tp - 1) / ...
         cnt_max), :), eloc, 'interplimits', 'electrodes');
 end
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC21', 'jpeg')));
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC21', 'fig')));
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC21, Time of cue')), 'jpeg');
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC21, Time of cue')), 'fig');
 
 plotTrialsOverTime(data_AC21_erds, triggers_AC21, channels, window_mrcp, fs, ...
     'Trials over time for patient AC21');
@@ -200,7 +200,7 @@ plot_MRCP(data_AC22_mrcp, triggers_AC22, poss_trig, trials_AC22, ...
     channels, window_mrcp, fs, 'MRCP for patient AC22, Time of cue');
 
 %Plotting topoplot
-fig = figure();
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
 cnt_max = 10;
 for cnt_tp = 1 : cnt_max
     subplot(2, 5, cnt_tp);
@@ -209,13 +209,11 @@ for cnt_tp = 1 : cnt_max
     topoplot(data_AC22_erds(triggers_AC22(1) + round(fs * (cnt_tp - 1) / ...
         cnt_max), :), eloc, 'interplimits', 'electrodes');
 end
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC22', 'jpeg')));
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC22', 'fig')));
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC22, Time of cue')), 'jpeg');
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC22, Time of cue')), 'fig');
 
 plotTrialsOverTime(data_AC22_erds, triggers_AC22, channels, window_mrcp, fs, ...
     'Trials over time for patient AC22');
-
-
 %%
 %Patient AC23
 %Calculating ERDS Maps
@@ -250,7 +248,7 @@ plot_MRCP(data_AC23_mrcp, triggers_AC23, poss_trig, trials_AC23, ...
     channels, window_mrcp, fs, 'MRCP for patient AC23, Time of cue');
 
 %Plotting topoplot
-fig = figure();
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
 cnt_max = 10;
 for cnt_tp = 1 : cnt_max
     subplot(2, 5, cnt_tp);
@@ -259,8 +257,8 @@ for cnt_tp = 1 : cnt_max
     topoplot(data_AC23_erds(triggers_AC23(1) + round(fs * (cnt_tp - 1) / ...
         cnt_max), :), eloc, 'interplimits', 'electrodes');
 end
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC23', 'jpeg')));
-saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC23', 'fig')));
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC23, Time of cue')), 'jpeg');
+saveas(fig, fullfile('../Plots/', strcat('Topoplot Patient AC23, Time of cue')), 'fig');
 
 plotTrialsOverTime(data_AC23_erds, triggers_AC23, channels, window_mrcp, fs, ...
     'Trials over time for patient AC23');

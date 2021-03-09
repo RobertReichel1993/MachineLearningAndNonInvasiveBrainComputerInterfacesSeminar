@@ -44,301 +44,58 @@ function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
         ./ sqrt(size(data, 2)));
     
     %Plotting everything
-    fig = figure();
-    subplot(3, 7, 2);
-    plot(time, data_class_1(:, : , 1), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 1) + sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 1) - sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{1}));
-    subplot(3, 7, 3);
-    plot(time, data_class_1(:, : , 2), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 2) + sem_c1(:, 2), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 2) - sem_c1(:, 2), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{2}));
-    subplot(3, 7, 4);
-    plot(time, data_class_1(:, : , 3), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 3) + sem_c1(:, 3), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 3) - sem_c1(:, 3), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{3}));
-    subplot(3, 7, 5);
-    plot(time, data_class_1(:, : , 4), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 4) + sem_c1(:, 4), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 4) - sem_c1(:, 4), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{4}));
-    subplot(3, 7, 6);
-    plot(time, data_class_1(:, : , 5), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 5) + sem_c1(:, 5), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 5) - sem_c1(:, 5), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{5}));
-    subplot(3, 7, 8);
-    plot(time, data_class_1(:, : , 6), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 6) + sem_c1(:, 6), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 6) - sem_c1(:, 6), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{6}));
-    subplot(3, 7, 9);
-    plot(time, data_class_1(:, : , 7), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 7) + sem_c1(:, 7), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 7) - sem_c1(:, 7), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{7}));
-    subplot(3, 7, 10);
-    plot(time, data_class_1(:, : , 8), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 8) + sem_c1(:, 8), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 8) - sem_c1(:, 8), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{8}));
-    subplot(3, 7, 11);
-    plot(time, data_class_1(:, : , 9), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 9) + sem_c1(:, 9), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 9) - sem_c1(:, 9), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{9}));
-    subplot(3, 7, 12);
-    plot(time, data_class_1(:, : , 10), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 10) + sem_c1(:, 10), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 10) - sem_c1(:, 10), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{10}));
-    subplot(3, 7, 13);
-    plot(time, data_class_1(:, : , 11), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 11) + sem_c1(:, 11), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 11) - sem_c1(:, 11), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{11}));
-    subplot(3, 7, 14);
-    plot(time, data_class_1(:, : , 12), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 12) + sem_c1(:, 12), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 12) - sem_c1(:, 12), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{12}));
-    subplot(3, 7, 16);
-    plot(time, data_class_1(:, : , 13), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 13) + sem_c1(:, 13), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 13) - sem_c1(:, 13), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{13}));
-    subplot(3, 7, 17);
-    plot(time, data_class_1(:, : , 14), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 14) + sem_c1(:, 14), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 14) - sem_c1(:, 14), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{14}));
-    subplot(3, 7, 18);
-    plot(time, data_class_1(:, : , 15), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 15) + sem_c1(:, 15), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 15) - sem_c1(:, 15), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{15}));
-    subplot(3, 7, 20);
-    plot(time, data_class_1(:, : , 16), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_1(:, : , 16) + sem_c1(:, 16), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_1(:, : , 16) - sem_c1(:, 16), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{16}));
-    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'jpeg');
-    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'fig');
+    subplotmask = [2 3 4 5 6 8 9 10 11 12 13 14 16 17 18 20];
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
+    for electrode = 1 : size(data, 2)
+        subplot(3, 7, subplotmask(electrode));
+        plot(time, data_class_1(:, : , 1), 'LineWidth', 1.2, 'Color', 'k');
+        hold on
+        plot(time, data_class_1(:, : , 1) + sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
+        plot(time, data_class_1(:, : , 1) - sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
+        hold off
+        xlabel('Time / s');
+        ylabel('Potential / µV');
+        title(strcat('MRCP for hand movement on ', electrodes{1}));
+    end
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'jpeg');
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'fig');
     
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
+    for electrode = 1 : size(data, 2)
+        subplot(3, 7, subplotmask(electrode));
+        plot(time, data_class_2(:, : , 1), 'LineWidth', 1.2, 'Color', 'k');
+        hold on
+        plot(time, data_class_2(:, : , 1) + sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
+        plot(time, data_class_2(:, : , 1) - sem_c1(:, 1), 'Color', [0.6 0.8 0.9]);
+        hold off
+        xlabel('Time / s');
+        ylabel('Potential / µV');
+        title(strcat('MRCP for foot movement on ', electrodes{1}));
+    end
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'jpeg');
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'fig');
     
-    
-    fig = figure();
-    subplot(3, 7, 2);
-    plot(time, data_class_2(:, : , 1), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 1) + sem_c2(:, 1), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 1) - sem_c2(:, 1), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{1}));
-    subplot(3, 7, 3);
-    plot(time, data_class_2(:, : , 1), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 2) + sem_c2(:, 2), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 2) - sem_c2(:, 2), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{2}));
-    subplot(3, 7, 4);
-    plot(time, data_class_2(:, : , 3), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 3) + sem_c2(:, 3), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 3) - sem_c2(:, 3), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{3}));
-    subplot(3, 7, 5);
-    plot(time, data_class_2(:, : , 4), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 4) + sem_c2(:, 4), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 4) - sem_c2(:, 4), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{4}));
-    subplot(3, 7, 6);
-    plot(time, data_class_2(:, : , 5), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 5) + sem_c2(:, 5), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 5) - sem_c2(:, 5), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{5}));
-    subplot(3, 7, 8);
-    plot(time, data_class_2(:, : , 6), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 6) + sem_c2(:, 6), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 6) - sem_c2(:, 6), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{6}));
-    subplot(3, 7, 9);
-    plot(time, data_class_2(:, : , 7), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 7) + sem_c2(:, 7), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 7) - sem_c2(:, 7), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{7}));
-    subplot(3, 7, 10);
-    plot(time, data_class_2(:, : , 8), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 8) + sem_c2(:, 8), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 8) - sem_c2(:, 8), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{8}));
-    subplot(3, 7, 11);
-    plot(time, data_class_2(:, : , 9), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 9) + sem_c2(:, 9), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 9) - sem_c2(:, 9), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{9}));
-    subplot(3, 7, 12);
-    plot(time, data_class_2(:, : , 10), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 10) + sem_c2(:, 10), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 10) - sem_c2(:, 10), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{10}));
-    subplot(3, 7, 13);
-    plot(time, data_class_2(:, : , 11), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 11) + sem_c2(:, 11), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 11) - sem_c2(:, 11), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{11}));
-    subplot(3, 7, 14);
-    plot(time, data_class_2(:, : , 12), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 12) + sem_c2(:, 12), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 12) - sem_c2(:, 12), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{12}));
-    subplot(3, 7, 16);
-    plot(time, data_class_2(:, : , 13), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 13) + sem_c2(:, 13), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 13) - sem_c2(:, 13), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{13}));
-    subplot(3, 7, 17);
-    plot(time, data_class_2(:, : , 14), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 14) + sem_c2(:, 14), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 14) - sem_c2(:, 14), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{14}));
-    subplot(3, 7, 18);
-    plot(time, data_class_2(:, : , 15), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 15) + sem_c2(:, 15), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 15) - sem_c2(:, 15), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{15}));
-    subplot(3, 7, 20);
-    plot(time, data_class_2(:, : , 16), 'LineWidth', 1.2, 'Color', 'k');
-    hold on
-    plot(time, data_class_2(:, : , 16) + sem_c2(:, 16), 'Color', [0.6 0.8 0.9]);
-    plot(time, data_class_2(:, : , 16) - sem_c2(:, 16), 'Color', [0.6 0.8 0.9]);
-    hold off
-    xlabel('Time / s');
-    ylabel('Potential / µV');
-    title(strcat('MRCP for foot movement on ', electrodes{16}));
-    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'jpeg');
-    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'fig');
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
+    for electrode = 1 : size(data, 2)
+        subplot(3, 7, subplotmask(electrode));
+        plot(time, data_class_1(:, : , 1), 'LineWidth', 1.2, 'Color', 'b');
+        hold on
+        plot(time, data_class_1(:, : , 1) + sem_c1(:, 1), 'Color', [0.5843 0.8157 0.9882]);
+        plot(time, data_class_1(:, : , 1) - sem_c1(:, 1), 'Color', [0.5843 0.8157 0.9882]);
+        plot(time, data_class_2(:, : , 1), 'LineWidth', 1.2, 'Color', 'r');
+        plot(time, data_class_2(:, : , 1) + sem_c1(:, 1), 'Color', [1 0.5 0.5]);
+        plot(time, data_class_2(:, : , 1) - sem_c1(:, 1), 'Color', [1 0.5 0.5]);
+        hold off
+        xlabel('Time / s');
+        ylabel('Potential / µV');
+        title(strcat('MRCP for hand and foot movement on ', electrodes{1}));
+    end
+    text = "Blue ... Mean MRCP Hand movement" + newline + newline + ...
+        "Light blue ... Standard error of Mean MRCP Hand movement" + newline + newline + ...
+        "Red ... Standard error of Mean MRCP Foot movement" + newline + newline + ...
+        "Light red ... Standard error of Mean MRCP Foot movement";
+    annotation('textbox', [0 .5 .1 .2], 'String', text, 'EdgeColor', 'none')
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Two Classes')), 'jpeg');
+    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Two Classes')), 'fig');
+
 end

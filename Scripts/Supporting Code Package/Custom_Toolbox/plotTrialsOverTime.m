@@ -31,7 +31,7 @@ function [stuff] = plotTrialsOverTime(data, triggers, electrodes, times, ...
            triggers(cnt_labels) + (times(2) * fs - 1)), :, :);
     end
 
-    fig = figure();
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
     subplotmask = [2 3 4 5 6 8 9 10 11 12 13 14 16 17 18 20];
     for electrode = 1 : size(data, 2)
         subplot(3, 7, subplotmask(electrode));
