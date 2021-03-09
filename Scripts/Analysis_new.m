@@ -75,7 +75,7 @@ signal_AC23(isnan(signal_AC23)) = 0;
 fs = events_AC21.sample_rate;
 %Done to downsample data
 %Analysis filter -> 4th order bandpass [0.1 40]
-[b, a] = butter(4, [.3 40] ./ (fs / 2));
+[b, a] = butter(4, [.1 40] ./ (fs / 2));
 %Filtering between 0.3 and 3 Hz for MRCP
 [b_mrcp, a_mrcp] = butter(4, [.3 3] ./ (fs / 2));
 
@@ -138,15 +138,8 @@ f_borders = [4, 30];
 tmp_c3 = data_AC21_erds(:, 7);
 tmp_c4 = data_AC21_erds(:, 11);
 tmp_cz = data_AC21_erds(:, 9);
-%Limiting data because there are some strange jumps in there
-tmp_c3(tmp_c3 > 150) = 150;
-tmp_c3(tmp_c3 < -150) = -150;
-tmp_cz(tmp_cz > 150) = 150;
-tmp_cz(tmp_cz < -150) = -150;
-tmp_c4(tmp_c4 > 150) = 150;
-tmp_c4(tmp_c4 < -150) = -150;
+
 %Calculating and plotting ERDS-Maps for both classes
-%ERDS Maps still not working because of some strange double error
 plotErdsMap(calcErdsMap([tmp_c3 tmp_c4 tmp_cz], erds_info, window_erds, ...
     f_borders, 'ref', ref_window_pat, 'sig', 'boot', 'alpha', 0.05, ...
     'class', 2, 'montage', [1 1 1]), ...

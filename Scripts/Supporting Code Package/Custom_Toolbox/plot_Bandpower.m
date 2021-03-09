@@ -52,7 +52,7 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
         xlabel('Frequency [Hz]');
         ylabel('Power density [Db]');
         xlim([0 40]);
-        legend('Class 1','Classe 2');
+        %legend('Class 1','Classe 2');
     end
     stuff = 0;
     saveas(fig, strcat(fullfile('../Plots/', fname)), 'jpeg');

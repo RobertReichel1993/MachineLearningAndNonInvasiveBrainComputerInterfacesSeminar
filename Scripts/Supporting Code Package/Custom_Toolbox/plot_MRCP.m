@@ -189,8 +189,8 @@ function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
     xlabel('Time / s');
     ylabel('Potential / µV');
     title(strcat('MRCP for hand movement on ', electrodes{16}));
-    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'jpeg');
-    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'fig');
+    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'jpeg');
+    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 1')), 'fig');
     
     
     
@@ -338,7 +338,7 @@ function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
     hold off
     xlabel('Time / s');
     ylabel('Potential / µV');
-    title(strcat('MRCP for hand movement on ', electrodes{16}));
-    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'jpeg');
-    saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'fig');
+    title(strcat('MRCP for foot movement on ', electrodes{16}));
+    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'jpeg');
+    %saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'fig');
 end
