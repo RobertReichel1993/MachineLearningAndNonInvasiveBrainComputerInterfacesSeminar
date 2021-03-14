@@ -107,9 +107,12 @@ f_up = [f_up, f_borders(end) + f_bandwidths(end)/2];
 
 fn  = fs/2;
 
+%s passt, und s(:, chn) ist genau 1 channel
+
 for chn = 1:size(s,2)  % Loop over all channels
        
     if submean  % Subtract evoked components?
+        %s_t is empty!
         s_t = trigg(s(:, chn), h.TRIG(ismember(h.Classlabel, class)), round(t(1)*fs), round(t(3)*fs));
         temp = reshape(s_t, triallen, length(s_t)/triallen);  % Reshape to samples x trials
         average = mean(temp, 2);

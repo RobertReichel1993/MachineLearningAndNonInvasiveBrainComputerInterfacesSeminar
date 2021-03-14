@@ -1,8 +1,25 @@
 ToDo:
-3. I agree that the ERDS maps seem a little bit suspicious... could it be that there are some "NaN" in the matrices to be plotted?
-Or that maybe the colormap axis is not appropriate and everything is "saturated" to the highest value so red?
 
-5. in the PSD plots, not sure whether I would display then in dB - maybe the linear scale is better?
+- try to do some classification in time-domain (MRCPs) as follows:
+
+         - look at significantly different time points (like in NBCI1 Unit1&2), to decide on a "reasonable" time window to try classification, for all electrodes
+
+         - compose the feature vector using the amplitude information (of the signal sampled at 10Hz), in the defined time-window, for all electrodes
+(so for example, if you have a window of 1s --> will be 10 samples --> which means that in total the feature vector will be 10xnchannels dimensional)
+
+         - train sLDA model
+
+         - cross-validation to estimate the accuracy
+
+
+
+For later... to think ahead:
+
+- paper with ideas to combine time-domain and frequency features:
+
+https://ieeexplore.ieee.org/abstract/document/8857138
+
+
 
 
 ... and, one could try to do all this (1) + 2) + 3)) twice, one aligned to the cue, and once aligned to the
