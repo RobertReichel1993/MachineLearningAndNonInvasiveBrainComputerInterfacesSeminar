@@ -20,7 +20,7 @@
 function [acc] = custom_kfold(data, labels, k, classification_fctn)
     acc = zeros(1, k);
     %Creating indices to specify training and validation set for runs
-    indices = crossvalind('Kfold', length(data), k);
+    indices = crossvalind('Kfold', size(data, 1), k);
     for i = 1 : k
         %Split dataset into training and validation set
         valid = data(indices == i, :);

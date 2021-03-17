@@ -11,6 +11,7 @@ addpath('Supporting Code Package\Custom_Toolbox');
 addpath('Supporting Code Package\reducedOutlierRejection');
 addpath('Supporting Code Package\ERDS-Maps');
 addpath('Supporting Code Package\eeglab');
+addpath('Supporting Code Package\lda_20160129');
 %Just for completenes sake
 channels = {'FC3','FC1','FCz','FC2','FC4','C5','C3','C1','Cz',...
     'C2','C4','C6','CP1','CPz','CP2','Pz'};
@@ -122,38 +123,96 @@ trials_AC23(IdcsOfTaintedTrials)  = [];
 %%
 % Analysis of Data
 %Patient AC21
-plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
-    window_erds, ref_window, channels, eloc, fs, 'AC21');
+%plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
+%    window_erds, ref_window, channels, eloc, fs, 'AC21');
 %Patient AC22
-plot_Analysis(data_AC22_erds, triggers_AC22, trials_AC22, window_mrcp, ...
-    window_erds, ref_window, channels, eloc, fs, 'AC22');
+%plot_Analysis(data_AC22_erds, triggers_AC22, trials_AC22, window_mrcp, ...
+%    window_erds, ref_window, channels, eloc, fs, 'AC22');
 %Patient AC23
-plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
-    window_erds, ref_window_AC23, channels, eloc, fs, 'AC23');
+%plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
+%    window_erds, ref_window_AC23, channels, eloc, fs, 'AC23');
 %%
 % Calculation of features in Time Domain
-%Downsampling
-d_fac = 16;
-fs = fs / d_fac;
-data_AC21_erds = downsample(data_AC21_erds, d_fac);
-triggers_AC21 = round(triggers_AC21 ./ d_fac);
-data_AC22_erds = downsample(data_AC22_erds, d_fac);
-triggers_AC22 = round(triggers_AC22 ./ d_fac);
-data_AC23_erds = downsample(data_AC23_erds, d_fac);
-triggers_AC23 = round(triggers_AC23 ./ d_fac);
-%Defining p_value
-p_val = 0.50;
+p_val = 0.5;
+rep_fac = 10;
+
 %Patient AC21
-[p_vals_AC21, sig_mask_AC21] = calc_p_values(data_AC21_mrcp, ...
+[features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_method1(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val);
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC21_m1 features_class_2_AC21_m1], [2 3 1]);
+features_AC21_m1 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC21_m1, 2), 1) * 60; ones(size(features_class_2_AC21_m1, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC21_m1 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC21_m1', labels, 5, @custom_shrinkage_LDA);
+    acc_AC21_m1(rep) = tmp;
+end
+
+[features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_method2(data_AC21_mrcp, ...
+    triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, 16);
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC21_m2 features_class_2_AC21_m2], [2 3 1]);
+features_AC21_m2 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC21_m2, 2), 1) * 60; ones(size(features_class_2_AC21_m2, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC21_m2 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC21_m2', labels, 5, @custom_shrinkage_LDA);
+    acc_AC21_m2(rep) = tmp;
+end
+%%
 %Patient AC22
-[p_vals_AC22, sig_mask_AC22] = calc_p_values(data_AC22_mrcp, ...
+[features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_method1(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val);
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC22_m1 features_class_2_AC22_m1], [2 3 1]);
+features_AC22_m1 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC22_m1, 2), 1) * 60; ones(size(features_class_2_AC22_m1, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC22_m1 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC22_m1', labels, 5, @custom_shrinkage_LDA);
+    acc_AC22_m1(rep) = tmp;
+end
+
+[features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_method2(data_AC22_mrcp, ...
+    triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, 16);
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC22_m2 features_class_2_AC22_m2], [2 3 1]);
+features_AC22_m2 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC22_m2, 2), 1) * 60; ones(size(features_class_2_AC22_m2, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC22_m2 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC22_m2', labels, 5, @custom_shrinkage_LDA);
+    acc_AC22_m2(rep) = tmp;
+end
+%%
 %Patient AC23
-[p_vals_AC23, sig_mask_AC23] = calc_p_values(data_AC23_mrcp, ...
+[features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_method1(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val);
-%For patient AC21 and AC23, no significant difference up to p = 0.5!
-any(any(sig_mask_AC21, 1))
-%At p = 0.19, there is a difference with this patient
-any(any(sig_mask_AC22, 1))
-any(any(sig_mask_AC23, 1))
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC23_m1 features_class_2_AC23_m1], [2 3 1]);
+features_AC23_m1 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC23_m1, 2), 1) * 60; ones(size(features_class_2_AC23_m1, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC23_m1 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC23_m1', labels, 5, @custom_shrinkage_LDA);
+    acc_AC23_m1(rep) = tmp;
+end
+
+[features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_method2(data_AC23_mrcp, ...
+    triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, 16);
+%Reshaping to use already existing classification methods
+tmp = permute([features_class_1_AC23_m2 features_class_2_AC23_m2], [2 3 1]);
+features_AC23_m2 = reshape(tmp, [], size(tmp, 1), 1);
+labels = [ones(size(features_class_1_AC23_m2, 2), 1) * 60; ones(size(features_class_2_AC23_m2, 2), 1) * 61];
+%Performing k-fold Classification with sLDA
+acc_AC23_m2 = zeros(rep_fac, 1);
+for rep = 1 : rep_fac
+    [tmp] = custom_kfold(features_AC23_m2', labels, 5, @custom_shrinkage_LDA);
+    acc_AC23_m2(rep) = tmp;
+end

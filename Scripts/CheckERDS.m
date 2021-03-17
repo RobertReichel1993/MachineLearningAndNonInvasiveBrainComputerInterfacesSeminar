@@ -121,34 +121,27 @@ trials_AC22(IdcsOfTaintedTrials)  = [];
 triggers_AC23(IdcsOfTaintedTrials) = [];
 trials_AC23(IdcsOfTaintedTrials)  = [];
 
-%Downsampling
-d_fac = 16;
-fs = fs / d_fac;
-data_AC21_erds = downsample(data_AC21_erds, d_fac);
-triggers_AC21 = round(triggers_AC21 ./ d_fac);
-data_AC22_erds = downsample(data_AC22_erds, d_fac);
-triggers_AC22 = round(triggers_AC22 ./ d_fac);
-data_AC23_erds = downsample(data_AC23_erds, d_fac);
-triggers_AC23 = round(triggers_AC23 ./ d_fac);
-
 %Defining p_value
 p_val = 0.50;
 %%
 %Patient AC21
-[p_vals_AC21, sig_mask_AC21] = calc_p_values(data_AC21_mrcp, ...
+[features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_method1(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val);
+
+[features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_method2(data_AC21_mrcp, ...
+    triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, 16);
 %%
 %Patient AC22
-[p_vals_AC22, sig_mask_AC22] = calc_p_values(data_AC22_mrcp, ...
+[features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_method1(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val);
+
+[features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_method2(data_AC22_mrcp, ...
+    triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, 16);
 %%
 %Patient AC23
-[p_vals_AC23, sig_mask_AC23] = calc_p_values(data_AC23_mrcp, ...
+[features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_method1(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val);
 
-%For patient AC21 and AC23, there is no significant difference up to p =
-%0.5!
-any(any(sig_mask_AC21, 1))
-%At p = 0.19, there is a difference with this patient
-any(any(sig_mask_AC22, 1))
-any(any(sig_mask_AC23, 1))
+[features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_method2(data_AC23_mrcp, ...
+    triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, 16);
+

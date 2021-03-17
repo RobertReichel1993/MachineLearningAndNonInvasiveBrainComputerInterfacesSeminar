@@ -20,8 +20,8 @@
 %EEG.event -> events (60, 61) for hand and foot and add. info
 
 
-function [p_vals, sig_mask] = calc_p_values(data, triggers, classes, ...
-    classes_idx, window_mrcp, fs, p_val)
+function [p_vals, sig_mask, data_class_1, data_class_2] = calc_p_values(data, ...
+    triggers, classes, classes_idx, window_mrcp, fs, p_val)
 
     %Splitting into different classes
     data_mat = zeros(((window_mrcp(2) - window_mrcp(1)) * fs), length(triggers), ...
