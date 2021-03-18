@@ -1,24 +1,20 @@
-%This function reads in a gdf file and saves it as an .mat file and returns
-%the data itself and, if the data is single precission, it automatically is
-%converted into double precission values
+%This function creates topoplots of the signals given in data
 %
 %Input:
-%   filename ... The name of the input file
-%   path ....... The path to the gdf files
+%   data ....... The given data with the dimensions:
+%                   [# of datapoints] x [# of channels]
+%   triggers ... The starting indices of all trials in the experiment
+%   eloc ....... The location of the EEG electrodes as read from the
+%                   eeglab function "readlocs"
+%   fs ......... The used sampling frequency
+%   figtitle ... The title under which the created figures are supposed
+%                   to be saved, once as .jpeg and once as .fig file
 %
 %Output:
-%   data ... A struct containing all information from the gdf file
+%   data ... The data used in the calculations, not really needed
 %
-%Dependencies: eeglab toolbox
-%
-%Remarks:
-%EEG.data -> data from channels
-%EEG.times -> timepoints
-%EEG.srate -> sample rate
-%EEG.nbchan -> number of channels with names, locations, etc.
-%EEG.chanlocs -> Channel locations
-%EEG.event -> events (60, 61) for hand and foot and add. info
-
+%Dependencies: eeglab (from the supporting code package, not the whole
+%                       eeglab package)
 
 function [data] = plot_Topoplots(data, triggers, eloc, fs, figtitle)
     %Creating full screen figure

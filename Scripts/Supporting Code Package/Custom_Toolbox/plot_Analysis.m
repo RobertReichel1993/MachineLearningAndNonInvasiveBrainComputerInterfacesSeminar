@@ -1,24 +1,31 @@
-%This function reads in a gdf file and saves it as an .mat file and returns
-%the data itself and, if the data is single precission, it automatically is
-%converted into double precission values
+%This file plots all the plots needed for a basic analysis of the given EEG
+%data in the time and frequency domain, containing ERDS maps, Topoplots,
+%MRCP plots and the pandpower.
 %
 %Input:
-%   filename ... The name of the input file
-%   path ....... The path to the gdf files
+%   data .......... The given data with the dimensions:
+%                   [# of datapoints] x [# of channels]
+%   triggers ...... The starting indices of all trials in the experiment
+%   events ........ An array indicating the corrseponding class for each
+%                   trial indicated by triggers
+%   window_mrcp ... The time window in which the MRCP is theorized to
+%                   happen
+%   window_erds ... The time window in which the ERDS is theorized to
+%                   happen
+%   ref_window .... The time window for the reference period of the ERDS
+%                   maps
+%   channels ...... The names of the EEG channels given in a struct of
+%                   strings
+%   eloc .......... The location of the EEG electrodes as read from the
+%                   eeglab function "readlocs"
+%   fs ............ The used sampling frequency
+%   patient ....... The name of the current patient
 %
 %Output:
-%   data ... A struct containing all information from the gdf file
+%   data ... The data used in the analysis, usually not really needed
 %
-%Dependencies: eeglab toolbox
-%
-%Remarks:
-%EEG.data -> data from channels
-%EEG.times -> timepoints
-%EEG.srate -> sample rate
-%EEG.nbchan -> number of channels with names, locations, etc.
-%EEG.chanlocs -> Channel locations
-%EEG.event -> events (60, 61) for hand and foot and add. info
-
+%Dependencies: eeglab (from the supporting code package, not the whole
+%                       eeglab package)
 
 function [data] = plot_Analysis(data, triggers, events, window_mrcp, ...
     window_erds, ref_window, channels, eloc, fs, patient)

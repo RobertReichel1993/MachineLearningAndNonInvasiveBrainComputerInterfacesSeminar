@@ -1,27 +1,38 @@
-%This function reads in a gdf file and saves it as an .mat file and returns
-%the data itself and, if the data is single precission, it automatically is
-%converted into double precission values
+%This function takes the given data, splits it into trials as defined by
+%the given triggers and classes, performs the Wilcoxon Rank Sum test to
+%find statistical significantly different points between the two classes
+%and then returns the data split into the two classes, the p-values for all
+%timepoints of the trials and a significance mask, which indicates which
+%array values are statistical significantly different given the chosen
+%p-value
 %
 %Input:
-%   filename ... The name of the input file
-%   path ....... The path to the gdf files
+%   data .......... The given data with the dimensions:
+%                   [# of datapoints] x [# of channels]
+%   triggers ...... The starting indices of all trials in the experiment
+%   pos_classes ... The possible classes occuring in classes_idx
+%   classes ....... An array indicating the corrseponding class for each
+%                   trial indicated by triggers
+%   window_mrcp ... The time window in which the MRCP is theorized to
+%   happen
+%   fs ............ The used sampling frequency
+%   p_val ......... The p-value used for testing if differences are
+%                   statistically significant
 %
 %Output:
-%   data ... A struct containing all information from the gdf file
+%   p_vals ....... The p_values corresponding to each timepoint in the trials
+%   sig_mask ..... The significance mask where 1 indicates statistical
+%                   significance and 0 if not
+%                   [# of datapoints per trial] x [# of channels]
+% data_class_1 ... The data split into trials for class 1
+%                   [# of datapoints per trial] x [# of trials in this class] x [# of channels]
+% data_class_2 ... The data split into trials for class 2
+%                   [# of datapoints per trial] x [# of trials in this class] x [# of channels]
 %
-%Dependencies: eeglab toolbox
-%
-%Remarks:
-%EEG.data -> data from channels
-%EEG.times -> timepoints
-%EEG.srate -> sample rate
-%EEG.nbchan -> number of channels with names, locations, etc.
-%EEG.chanlocs -> Channel locations
-%EEG.event -> events (60, 61) for hand and foot and add. info
-
+%Dependencies: none
 
 function [p_vals, sig_mask, data_class_1, data_class_2] = calc_p_values(data, ...
-    triggers, classes, classes_idx, window_mrcp, fs, p_val)
+    triggers, pos_classes, classes, window_mrcp, fs, p_val)
 
     %Splitting into different classes
     data_mat = zeros(((window_mrcp(2) - window_mrcp(1)) * fs), length(triggers), ...
@@ -33,8 +44,8 @@ function [p_vals, sig_mask, data_class_1, data_class_2] = calc_p_values(data, ..
     end
 
     %Creating data for different trial classes (hand and feet)
-    data_class_1 = data_mat(:, classes_idx == classes(1), :);
-    data_class_2 = data_mat(:, classes_idx == classes(2), :);
+    data_class_1 = data_mat(:, classes == pos_classes(1), :);
+    data_class_2 = data_mat(:, classes == pos_classes(2), :);
 
     alpha = p_val / size(data_mat, 2);
     %Now use Wilcoxon test to calculate p values for each electrode

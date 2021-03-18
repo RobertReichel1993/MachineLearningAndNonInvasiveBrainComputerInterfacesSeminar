@@ -1,24 +1,25 @@
-%This function reads in a gdf file and saves it as an .mat file and returns
-%the data itself and, if the data is single precission, it automatically is
-%converted into double precission values
+%This function creates plots of the bandpower of the signals given in data
 %
 %Input:
-%   filename ... The name of the input file
-%   path ....... The path to the gdf files
+%   data .......... The given data with the dimensions:
+%                   [# of datapoints] x [# of channels]
+%   triggers ...... The starting indices of all trials in the experiment
+%   classes ....... An array indicating all possible classes in
+%                   classes_idx
+%   classes_idx ... An array indicating the corrseponding class for each
+%                   trial indicated by triggers
+%   electrodes .... The names of the EEG channels given in a struct of
+%                   strings
+%   times ......... The time window in which the MRCP is theorized to
+%                   happen
+%   fs ............ The used sampling frequency
+%   figtitle ...... The title under which the created figures are supposed
+%                   to be saved, once as .jpeg and once as .fig file
 %
 %Output:
-%   data ... A struct containing all information from the gdf file
+%   stuff ... Currently not needed, included for debugging purposes
 %
-%Dependencies: eeglab toolbox
-%
-%Remarks:
-%EEG.data -> data from channels
-%EEG.times -> timepoints
-%EEG.srate -> sample rate
-%EEG.nbchan -> number of channels with names, locations, etc.
-%EEG.chanlocs -> Channel locations
-%EEG.event -> events (60, 61) for hand and foot and add. info
-
+%Dependencies: none
 
 function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
     electrodes, times, fs, figtitle)

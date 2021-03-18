@@ -135,84 +135,46 @@ trials_AC23(IdcsOfTaintedTrials)  = [];
 % Calculation of features in Time Domain
 p_val = 0.5;
 rep_fac = 10;
-
+kfold_fac = 5;
+%%
 %Patient AC21
+%Calculating features for method 1
 [features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_method1(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC21_m1 features_class_2_AC21_m1], [2 3 1]);
-features_AC21_m1 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC21_m1, 2), 1) * 60; ones(size(features_class_2_AC21_m1, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC21_m1 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC21_m1', labels, 5, @custom_shrinkage_LDA);
-    acc_AC21_m1(rep) = tmp;
-end
-
+%Classification and kfolding for method 2
+[acc_AC21_m1] = permute_and_kfold(features_class_1_AC21_m1, features_class_2_AC21_m1, ...
+    rep_fac, kfold_fac);
+%Calculating features for method 2
 [features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_method2(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, 16);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC21_m2 features_class_2_AC21_m2], [2 3 1]);
-features_AC21_m2 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC21_m2, 2), 1) * 60; ones(size(features_class_2_AC21_m2, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC21_m2 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC21_m2', labels, 5, @custom_shrinkage_LDA);
-    acc_AC21_m2(rep) = tmp;
-end
+%Classification and kfolding for method 2
+[acc_AC21_m2] = permute_and_kfold(features_class_1_AC21_m2, features_class_2_AC21_m2, ...
+    rep_fac, kfold_fac);
 %%
 %Patient AC22
+%Calculating features for method 1
 [features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_method1(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC22_m1 features_class_2_AC22_m1], [2 3 1]);
-features_AC22_m1 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC22_m1, 2), 1) * 60; ones(size(features_class_2_AC22_m1, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC22_m1 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC22_m1', labels, 5, @custom_shrinkage_LDA);
-    acc_AC22_m1(rep) = tmp;
-end
-
+%Classification and kfolding for method 1
+[acc_AC22_m1] = permute_and_kfold(features_class_1_AC22_m1, features_class_2_AC22_m1, ...
+    rep_fac, kfold_fac);
+%Calculating features for method 2
 [features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_method2(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, 16);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC22_m2 features_class_2_AC22_m2], [2 3 1]);
-features_AC22_m2 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC22_m2, 2), 1) * 60; ones(size(features_class_2_AC22_m2, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC22_m2 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC22_m2', labels, 5, @custom_shrinkage_LDA);
-    acc_AC22_m2(rep) = tmp;
-end
+%Classification and kfolding for method 2
+[acc_AC22_m2] = permute_and_kfold(features_class_1_AC22_m2, features_class_2_AC22_m2, ...
+    rep_fac, kfold_fac);
 %%
 %Patient AC23
+%Calculating features for method 1
 [features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_method1(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC23_m1 features_class_2_AC23_m1], [2 3 1]);
-features_AC23_m1 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC23_m1, 2), 1) * 60; ones(size(features_class_2_AC23_m1, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC23_m1 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC23_m1', labels, 5, @custom_shrinkage_LDA);
-    acc_AC23_m1(rep) = tmp;
-end
-
+%Classification and kfolding for method 1
+[acc_AC23_m1] = permute_and_kfold(features_class_1_AC23_m1, features_class_2_AC23_m1, ...
+    rep_fac, kfold_fac);
+%Calculating features for method 2
 [features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_method2(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, 16);
-%Reshaping to use already existing classification methods
-tmp = permute([features_class_1_AC23_m2 features_class_2_AC23_m2], [2 3 1]);
-features_AC23_m2 = reshape(tmp, [], size(tmp, 1), 1);
-labels = [ones(size(features_class_1_AC23_m2, 2), 1) * 60; ones(size(features_class_2_AC23_m2, 2), 1) * 61];
-%Performing k-fold Classification with sLDA
-acc_AC23_m2 = zeros(rep_fac, 1);
-for rep = 1 : rep_fac
-    [tmp] = custom_kfold(features_AC23_m2', labels, 5, @custom_shrinkage_LDA);
-    acc_AC23_m2(rep) = tmp;
-end
+%Classification and kfolding for method 2
+[acc_AC23_m2] = permute_and_kfold(features_class_1_AC23_m2, features_class_2_AC23_m2, ...
+    rep_fac, kfold_fac);

@@ -3,16 +3,13 @@
 %compare between two classes for a two class classification problem.
 %
 %Input:
-%   data_hand .......... The data for the first class
+%   data_hand ... The data for the first class
 %                       [number of channels] x [number of datapoints per trial] x [number of trials in class 1]
-%   data_feet .......... The data for the second class
+%   data_feet ... The data for the second class
 %                       [number of channels] x [number of datapoints per trial] x [number of trials in class 2]
-%   names .............. The names of the channels at which the data is
-%                        recorded
-%   fs ................. The sampling frequency of the signals
-%   overlap ............ The overlap in window length for PSD calculation
-%   in percent (0 to 1)
-%   title .............. The title as which the figure should be saved
+%   fs .......... The sampling frequency of the signals
+%   overlap ..... The overlap in window length for PSD calculation
+%                       in percent (0 to 1)
 %
 %Output:
 %   psd ... The calculated power spectral density across the frequency
@@ -22,7 +19,7 @@
 %
 %Dependencies: none
 
-function [psd, frange] = estimate_psd(data_hand, data_feet, names, fs, overlap, fname)
+function [psd, frange] = estimate_psd(data_hand, data_feet, fs, overlap)
     %Checking if both classes have same amount of trials
     size_1 = size(data_hand);
     size_2 = size(data_feet);
@@ -65,17 +62,5 @@ function [psd, frange] = estimate_psd(data_hand, data_feet, names, fs, overlap, 
         end
 
         psd = 20*log10(mean(psd,4)); %log transformation of the mean into [Db]
-    end  
-    %Creating figure, otherwise we overwrite old plots!
-%     fig = figure();
-%     for j = 1 : size(data_hand, 1)
-%          subplot(1,size(data_hand, 1),j) % plotting the data
-%          plot(frange,psd(:,1,j),...
-%               frange,psd(:,2,j),'LineWidth',2);
-%          title(names{j});
-%          xlabel('Frequency [Hz]');
-%          ylabel('Power density [Db]');
-%          legend('Class 1','Classe 2');
-%     end
-%     saveas(fig, fname, 'jpeg');
+    end
 end
