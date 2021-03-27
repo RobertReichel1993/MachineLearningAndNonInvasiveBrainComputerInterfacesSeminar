@@ -20,7 +20,7 @@
 %
 %Dependencies: none
 
-function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
+function [psd_mat] = plot_Bandpower(data, triggers, classes, classes_idx, ...
     electrodes, times, fs, fname)
     %Splitting into different classes
     data_mat = zeros(((times(2) - times(1)) * fs), length(triggers), ...
@@ -37,6 +37,8 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
     
     data_class_1 = permute(data_class_1, [3, 1, 2]);
     data_class_2 = permute(data_class_2, [3, 1, 2]);
+    
+    psd_mat = zeros((fs / 2) + 1, 2, length(electrodes));
 
     %Estimating PSD and visualizing it
     fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
@@ -44,9 +46,8 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
     for electrode = 1 : size(data, 2)
         subplot(3, 7, subplotmask(electrode));
         [psd, frange] = estimate_psd(data_class_1(electrode, :, :), ...
-            data_class_2(electrode, :, :), ...
-            electrodes(electrode), fs, 0.5, ...
-            fullfile('../Plots/', strcat(fname, string(electrode))));
+            data_class_2(electrode, :, :), fs, 0.5);
+        psd_mat(:, :, electrode) = psd;
         plot(frange, psd(:, 1), frange,psd(:, 2), 'LineWidth', 2);
         title(electrodes{electrode});
         xlabel('Frequency [Hz]');
@@ -54,7 +55,6 @@ function [stuff] = plot_Bandpower(data, triggers, classes, classes_idx, ...
         xlim([0 40]);
         legend('Class 1','Classe 2', 'Location', 'southoutside', 'Orientation', 'horizontal');
     end
-    stuff = 0;
     saveas(fig, strcat(fullfile('../Plots/', fname)), 'jpeg');
     saveas(fig, strcat(fullfile('../Plots/', fname)), 'fig');
 end

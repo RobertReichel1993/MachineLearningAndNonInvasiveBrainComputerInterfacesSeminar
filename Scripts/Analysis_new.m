@@ -136,45 +136,61 @@ trials_AC23(IdcsOfTaintedTrials)  = [];
 p_val = 0.5;
 rep_fac = 10;
 kfold_fac = 5;
+freqs = [[8 12]; [10 14]; [14 19]; [17 22]; [20 25]; [23 28]; [26 31]];
 %%
+%{
 %Patient AC21
+%Calculating frequency domain features
+[features_class_1_AC21, features_class_2_AC21] = calc_freq_features(data_AC21_erds, triggers_AC21, [60 61], trials_AC21, ...
+    window_erds, fs, freqs);
 %Calculating features for method 1
 [features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_method1(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val);
-%Classification and kfolding for method 2
-[acc_AC21_m1] = permute_and_kfold(features_class_1_AC21_m1, features_class_2_AC21_m1, ...
-    rep_fac, kfold_fac);
+%Classification and kfolding for method 1
+[acc_AC21_m1] = permute_and_kfold(cat(1, features_class_1_AC21, features_class_1_AC21_m1), ...
+    cat(1, features_class_2_AC21, features_class_2_AC21_m1), rep_fac, kfold_fac);
 %Calculating features for method 2
 [features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_method2(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, 16);
 %Classification and kfolding for method 2
-[acc_AC21_m2] = permute_and_kfold(features_class_1_AC21_m2, features_class_2_AC21_m2, ...
-    rep_fac, kfold_fac);
+[acc_AC21_m2] = permute_and_kfold(cat(1, features_class_1_AC21, features_class_1_AC21_m2), ...
+    cat(1, features_class_2_AC21, features_class_2_AC21_m2), rep_fac, kfold_fac);
+%}
 %%
 %Patient AC22
+%{
+%Calculating frequency domain features
+[features_class_1_AC22, features_class_2_AC22] = calc_freq_features(data_AC22_erds, triggers_AC22, [60 61], trials_AC22, ...
+    window_erds, fs, freqs);
 %Calculating features for method 1
 [features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_method1(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val);
 %Classification and kfolding for method 1
-[acc_AC22_m1] = permute_and_kfold(features_class_1_AC22_m1, features_class_2_AC22_m1, ...
-    rep_fac, kfold_fac);
+[acc_AC22_m1] = permute_and_kfold(cat(1, features_class_1_AC22, features_class_1_AC22_m1), ...
+    cat(1, features_class_2_AC22, features_class_2_AC22_m1), rep_fac, kfold_fac);
 %Calculating features for method 2
 [features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_method2(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, 16);
 %Classification and kfolding for method 2
-[acc_AC22_m2] = permute_and_kfold(features_class_1_AC22_m2, features_class_2_AC22_m2, ...
-    rep_fac, kfold_fac);
+[acc_AC22_m2] = permute_and_kfold(cat(1, features_class_1_AC22, features_class_1_AC22_m2), ...
+    cat(1, features_class_2_AC22, features_class_2_AC22_m2), rep_fac, kfold_fac);
+%}
 %%
 %Patient AC23
+%{
+%Calculating frequency domain features
+[features_class_1_AC23, features_class_2_AC23] = calc_freq_features(data_AC23_erds, triggers_AC23, [60 61], trials_AC23, ...
+    window_erds, fs, freqs);
 %Calculating features for method 1
 [features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_method1(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val);
 %Classification and kfolding for method 1
-[acc_AC23_m1] = permute_and_kfold(features_class_1_AC23_m1, features_class_2_AC23_m1, ...
-    rep_fac, kfold_fac);
+[acc_AC23_m1] = permute_and_kfold(cat(1, features_class_1_AC23, features_class_1_AC23_m1), ...
+    cat(1, features_class_2_AC23, features_class_2_AC23_m1), rep_fac, kfold_fac);
 %Calculating features for method 2
 [features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_method2(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, 16);
 %Classification and kfolding for method 2
-[acc_AC23_m2] = permute_and_kfold(features_class_1_AC23_m2, features_class_2_AC23_m2, ...
-    rep_fac, kfold_fac);
+[acc_AC23_m2] = permute_and_kfold(cat(1, features_class_1_AC23, features_class_1_AC23_m2), ...
+    cat(1, features_class_2_AC23, features_class_2_AC23_m2), rep_fac, kfold_fac););
+%}
