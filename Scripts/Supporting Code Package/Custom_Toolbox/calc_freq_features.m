@@ -3,22 +3,26 @@
 %converted into double precission values
 %
 %Input:
-%   filename ... The name of the input file
-%   path ....... The path to the gdf files
+%   data ........... The given data with the dimensions:
+%                    [# of datapoints] x [# of channels]
+%   triggers ....... The starting indices of all trials in the experiment
+%   classes ........ An array indicating the corrseponding class for each
+%                    trial indicated by triggers
+%   classes_idx .... An array indicating the corrseponding class for each
+%                    trial indicated by triggers
+%   window_erds .... The time window in which the ERDS is theorized to
+%                    happen
+%   fs ............. The used sampling frequency
+%   bins ........... The frequency bins in which the psd averages are to be
+%                    calculated to be used as features
 %
 %Output:
-%   data ... A struct containing all information from the gdf file
+%   features_class_1 ... Features for the frequency domain for class 1
+%                        [number of features] x [number of trials] x [number of channels]
+%   features_class_2 ... Features for the frequency domain for class 2
+%                        [number of features] x [number of trials] x [number of channels]
 %
-%Dependencies: eeglab toolbox
-%
-%Remarks:
-%EEG.data -> data from channels
-%EEG.times -> timepoints
-%EEG.srate -> sample rate
-%EEG.nbchan -> number of channels with names, locations, etc.
-%EEG.chanlocs -> Channel locations
-%EEG.event -> events (60, 61) for hand and foot and add. info
-
+%Dependencies: none
 
 function [features_class_1, features_class_2] = calc_freq_features(data, triggers, classes, classes_idx, ...
     window_erds, fs, bins)

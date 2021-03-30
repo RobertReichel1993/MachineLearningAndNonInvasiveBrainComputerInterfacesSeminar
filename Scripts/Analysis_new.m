@@ -122,17 +122,20 @@ triggers_AC23(IdcsOfTaintedTrials) = [];
 trials_AC23(IdcsOfTaintedTrials)  = [];
 %%
 % Analysis of Data
+%{
 %Patient AC21
-%plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
-%    window_erds, ref_window, channels, eloc, fs, 'AC21');
+plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
+    window_erds, ref_window, channels, eloc, fs, 'AC21');
 %Patient AC22
-%plot_Analysis(data_AC22_erds, triggers_AC22, trials_AC22, window_mrcp, ...
-%    window_erds, ref_window, channels, eloc, fs, 'AC22');
+plot_Analysis(data_AC22_erds, triggers_AC22, trials_AC22, window_mrcp, ...
+    window_erds, ref_window, channels, eloc, fs, 'AC22');
 %Patient AC23
-%plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
-%    window_erds, ref_window_AC23, channels, eloc, fs, 'AC23');
+plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
+    window_erds, ref_window_AC23, channels, eloc, fs, 'AC23');
+%}
 %%
 % Calculation of features in Time Domain
+downsample_fac = 16;
 p_val = 0.5;
 rep_fac = 10;
 kfold_fac = 5;
@@ -143,18 +146,27 @@ freqs = [[8 12]; [10 14]; [14 19]; [17 22]; [20 25]; [23 28]; [26 31]];
 %Calculating frequency domain features
 [features_class_1_AC21, features_class_2_AC21] = calc_freq_features(data_AC21_erds, triggers_AC21, [60 61], trials_AC21, ...
     window_erds, fs, freqs);
-%Calculating features for method 1
-[features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_method1(data_AC21_mrcp, ...
+
+%Calculating features for method 1 (my "interesting" idea)
+[features_class_1_AC21_m1, features_class_2_AC21_m1] = get_features_significantPoints(data_AC21_mrcp, ...
     triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val);
-%Classification and kfolding for method 1
+%Classification and kfolding for method 1 (my "interesting" idea)
 [acc_AC21_m1] = permute_and_kfold(cat(1, features_class_1_AC21, features_class_1_AC21_m1), ...
     cat(1, features_class_2_AC21, features_class_2_AC21_m1), rep_fac, kfold_fac);
-%Calculating features for method 2
-[features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_method2(data_AC21_mrcp, ...
-    triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, 16);
-%Classification and kfolding for method 2
+
+%Calculating features for method 2 (Valeria's Method)
+[features_class_1_AC21_m2, features_class_2_AC21_m2] = get_features_significanceWindow(data_AC21_mrcp, ...
+    triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, p_val, downsample_fac);
+%Classification and kfolding for method 2 (Valeria's Method)
 [acc_AC21_m2] = permute_and_kfold(cat(1, features_class_1_AC21, features_class_1_AC21_m2), ...
     cat(1, features_class_2_AC21, features_class_2_AC21_m2), rep_fac, kfold_fac);
+
+%Calculating features for method 3 (From paper)
+[features_class_1_paper, features_class_2_paper, ~] = get_features_paper(data_AC21_mrcp, ...
+    triggers_AC21, [60 61], trials_AC21, window_mrcp, fs, downsample_fac);
+%Classification and kfolding for method 3 (From paper)
+[acc_AC21_m3] = permute_and_kfold(cat(1, features_class_1_AC21, features_class_1_AC21_paper), ...
+    cat(1, features_class_2_AC21, features_class_2_AC21_paper), rep_fac, kfold_fac);
 %}
 %%
 %Patient AC22
@@ -162,18 +174,27 @@ freqs = [[8 12]; [10 14]; [14 19]; [17 22]; [20 25]; [23 28]; [26 31]];
 %Calculating frequency domain features
 [features_class_1_AC22, features_class_2_AC22] = calc_freq_features(data_AC22_erds, triggers_AC22, [60 61], trials_AC22, ...
     window_erds, fs, freqs);
-%Calculating features for method 1
-[features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_method1(data_AC22_mrcp, ...
+
+%Calculating features for method 1 (my "interesting" idea)
+[features_class_1_AC22_m1, features_class_2_AC22_m1] = get_features_significantPoints(data_AC22_mrcp, ...
     triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val);
-%Classification and kfolding for method 1
+%Classification and kfolding for method 1 (my "interesting" idea)
 [acc_AC22_m1] = permute_and_kfold(cat(1, features_class_1_AC22, features_class_1_AC22_m1), ...
     cat(1, features_class_2_AC22, features_class_2_AC22_m1), rep_fac, kfold_fac);
-%Calculating features for method 2
-[features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_method2(data_AC22_mrcp, ...
-    triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, 16);
-%Classification and kfolding for method 2
+
+%Calculating features for method 2 (Valeria's Method)
+[features_class_1_AC22_m2, features_class_2_AC22_m2] = get_features_significanceWindow(data_AC22_mrcp, ...
+    triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, p_val, downsample_fac);
+%Classification and kfolding for method 2 (Valeria's Method)
 [acc_AC22_m2] = permute_and_kfold(cat(1, features_class_1_AC22, features_class_1_AC22_m2), ...
     cat(1, features_class_2_AC22, features_class_2_AC22_m2), rep_fac, kfold_fac);
+
+%Calculating features for method 3 (From paper)
+[features_class_1_paper, features_class_2_paper, ~] = get_features_paper(data_AC22_mrcp, ...
+    triggers_AC22, [60 61], trials_AC22, window_mrcp, fs, downsample_fac);
+%Classification and kfolding for method 3 (From paper)
+[acc_AC22_m3] = permute_and_kfold(cat(1, features_class_1_AC22, features_class_1_AC22_paper), ...
+    cat(1, features_class_2_AC22, features_class_2_AC22_paper), rep_fac, kfold_fac);
 %}
 %%
 %Patient AC23
@@ -181,16 +202,24 @@ freqs = [[8 12]; [10 14]; [14 19]; [17 22]; [20 25]; [23 28]; [26 31]];
 %Calculating frequency domain features
 [features_class_1_AC23, features_class_2_AC23] = calc_freq_features(data_AC23_erds, triggers_AC23, [60 61], trials_AC23, ...
     window_erds, fs, freqs);
-%Calculating features for method 1
-[features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_method1(data_AC23_mrcp, ...
+
+%Calculating features for method 1 (my "interesting" idea)
+[features_class_1_AC23_m1, features_class_2_AC23_m1] = get_features_significantPoints(data_AC23_mrcp, ...
     triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val);
-%Classification and kfolding for method 1
+%Classification and kfolding for method 1 (my "interesting" idea)
 [acc_AC23_m1] = permute_and_kfold(cat(1, features_class_1_AC23, features_class_1_AC23_m1), ...
     cat(1, features_class_2_AC23, features_class_2_AC23_m1), rep_fac, kfold_fac);
-%Calculating features for method 2
-[features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_method2(data_AC23_mrcp, ...
-    triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, 16);
-%Classification and kfolding for method 2
+%Calculating features for method 2 (Valeria's Method)
+[features_class_1_AC23_m2, features_class_2_AC23_m2] = get_features_significanceWindow(data_AC23_mrcp, ...
+    triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, p_val, downsample_fac);
+%Classification and kfolding for method 2  (Valeria's Method)
 [acc_AC23_m2] = permute_and_kfold(cat(1, features_class_1_AC23, features_class_1_AC23_m2), ...
     cat(1, features_class_2_AC23, features_class_2_AC23_m2), rep_fac, kfold_fac););
+
+%Calculating features for method 3 (From paper)
+[features_class_1_paper, features_class_2_paper, ~] = get_features_paper(data_AC23_mrcp, ...
+    triggers_AC23, [60 61], trials_AC23, window_mrcp, fs, downsample_fac);
+%Classification and kfolding for method 3 (From paper)
+[acc_AC23_m3] = permute_and_kfold(cat(1, features_class_1_AC23, features_class_1_AC23_paper), ...
+    cat(1, features_class_2_AC23, features_class_2_AC23_paper), rep_fac, kfold_fac);
 %}

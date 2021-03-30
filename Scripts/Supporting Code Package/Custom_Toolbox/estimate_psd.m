@@ -12,10 +12,11 @@
 %                       in percent (0 to 1)
 %
 %Output:
-%   psd ... The calculated power spectral density across the frequency
+%   psd ...... The calculated power spectral density across the frequency
 %           range from 0 to fs/2 averaged across the trials.
 %           The output has the dimention:
 %           [number of frequency components] x [number of classes] x [number of channels]
+%   frange ... The frequency range in which the psd is calculated (0 to fs/2)
 %
 %Dependencies: none
 

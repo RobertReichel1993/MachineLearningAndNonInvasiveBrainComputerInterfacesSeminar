@@ -21,7 +21,7 @@
 %
 %Dependencies: none
 
-function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
+function [stuff] = plot_MRCP(data, triggers, classes, classes_idx, ...
     electrodes, times, fs, figtitle)
 
     time = times(1) : 1/fs : times(2)-1/fs;
@@ -99,4 +99,5 @@ function [data] = plot_MRCP(data, triggers, classes, classes_idx, ...
     saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Two Classes')), 'jpeg');
     saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Two Classes')), 'fig');
 
+    stuff = 0;
 end

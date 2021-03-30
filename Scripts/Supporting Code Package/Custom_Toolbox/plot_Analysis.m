@@ -22,7 +22,8 @@
 %   patient ....... The name of the current patient
 %
 %Output:
-%   data ... The data used in the analysis, usually not really needed
+%   psd_mat ... A matrix filled with the calculated PSD of the data
+%               [number of samples] x [number of trials] x [number of channels]
 %
 %Dependencies: eeglab (from the supporting code package, not the whole
 %                       eeglab package)

@@ -16,7 +16,8 @@
 %   patient ....... The name of the current patient
 %
 %Output:
-%   stuff ... Currently not needed, included for debugging purposes
+%   psd_mat ... A matrix filled with the calculated PSD of the data
+%               [number of samples] x [number of trials] x [number of channels]
 %
 %Dependencies: none
 

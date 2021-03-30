@@ -3,19 +3,20 @@
 %compare between two classes for a two class classification problem.
 %
 %Input:
-%   data_hand ... The data for the first class
-%                       [number of channels] x [number of datapoints per trial] x [number of trials in class 1]
-%   data_feet ... The data for the second class
-%                       [number of channels] x [number of datapoints per trial] x [number of trials in class 2]
-%   fs .......... The sampling frequency of the signals
-%   overlap ..... The overlap in window length for PSD calculation
-%                       in percent (0 to 1)
+%   data .............. The given data with the dimensions:
+%                   [# of datapoints] x [# of channels]
+%   triggers .......... The starting indices of all trials in the experiment
+%   classes ........... An array indicating the corrseponding class for each
+%                   trial indicated by triggers
+%   classes_idx ....... An array indicating the corrseponding class for each
+%                   trial indicated by triggers
+%   fs ................ The sampling frequency of the signals
+%   times ............. The time window in which the MRCP is theorized to
+%   happen
 %
 %Output:
-%   psd ... The calculated power spectral density across the frequency
-%           range from 0 to fs/2 averaged across the trials.
-%           The output has the dimention:
-%           [number of frequency components] x [number of classes] x [number of channels]
+%   psd_mat ... A matrix filled with the calculated PSD of the data
+%               [number of samples] x [number of trials] x [number of channels]
 %
 %Dependencies: none
 
