@@ -1,5 +1,5 @@
 ToDo:
 
-Different trigger timings.
+- Visualization of single feature classification
 
-Three-way for patient AC23
+- Then concatenate features of best performing methods

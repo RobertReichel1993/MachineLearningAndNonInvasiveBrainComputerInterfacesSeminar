@@ -1,6 +1,5 @@
-%This function reads in a gdf file and saves it as an .mat file and returns
-%the data itself and, if the data is single precission, it automatically is
-%converted into double precission values
+%This function calculates features for classification by calculating the
+%average PSD in the given frequency bins without filtering beforehand.
 %
 %Input:
 %   data ........... The given data with the dimensions:
@@ -24,8 +23,8 @@
 %
 %Dependencies: none
 
-function [features_class_1, features_class_2] = calc_freq_features(data, triggers, classes, classes_idx, ...
-    window_erds, fs, bins)
+function [features_class_1, features_class_2] = calc_freq_features(data, ...
+    triggers, classes, classes_idx, window_erds, fs, bins)
     
     psd_mat = estimate_psd_noclass(data, triggers, classes, classes_idx, ...
     window_erds, fs);

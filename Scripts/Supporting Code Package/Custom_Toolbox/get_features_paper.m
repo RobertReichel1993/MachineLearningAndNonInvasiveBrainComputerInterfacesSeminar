@@ -30,7 +30,7 @@
 
 
 function [features_class_1, features_class_2, shift_max] = get_features_paper(data, ...
-    triggers, classes, classes_idx, window_mrcp, fs, d_fac)
+    triggers, classes, classes_idx, window_mrcp, fs, d_fac, electrodes, figtitle)
 
     fs = fs / d_fac;
     data = downsample(data, d_fac);
@@ -53,6 +53,33 @@ function [features_class_1, features_class_2, shift_max] = get_features_paper(da
         accs(w_shift) = mean(permute_and_kfold(f_c_1, f_c_2, 10, 5));
     end
     [~, shift_max] = max(accs);
-    features_class_1 = data_mat(shift_max : shift_max + 9, classes_idx == classes(1), :);
-    features_class_2 = data_mat(shift_max : shift_max + 9, classes_idx == classes(2), :);
+    features_class_1 = downsample(data_mat(shift_max : shift_max + 9, classes_idx == classes(1), :), 4);
+    features_class_2 = downsample(data_mat(shift_max : shift_max + 9, classes_idx == classes(2), :), 4);
+    
+    fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
+    subplotmask = [2 3 4 5 6 8 9 10 11 12 13 14 16 17 18 20];
+    time = linspace(window_mrcp(1), window_mrcp(end), ...
+            ((window_mrcp(end) - window_mrcp(1)) * fs));
+
+    means_class_1 = squeeze(mean(data_mat(:, classes_idx == classes(1), :), 2));
+    means_class_2 = squeeze(mean(data_mat(:, classes_idx == classes(2), :), 2));
+    
+    for electrode = 1 : size(data, 2)
+        subplot(3, 7, subplotmask(electrode));
+        plot(time, means_class_1(:, electrode), 'Color', 'b');
+        hold on
+        plot(time, means_class_2(:, electrode), 'Color', 'k');
+        stem([time(shift_max) time(shift_max + 9)], [10 10], ...
+            'LineWidth', 1.5, 'Color', 'r');
+        hold off
+        xlabel('Time / s');
+        ylabel('Potential / µV');
+        title(strcat('MRCP for hand and foot movement on ', electrodes{electrode}));
+    end
+    text = "Blue ... Mean MRCP Class 1" + newline + newline + ...
+        "Black ... Mean MRCP Class 2" + newline + newline + ...
+        "Red ... Edged of significance window";
+    annotation('textbox', [0 .5 .1 .2], 'String', text, 'EdgeColor', 'none')
+    saveas(fig, fullfile('../Plots/', figtitle), 'jpeg');
+    saveas(fig, fullfile('../Plots/', figtitle), 'fig');
 end

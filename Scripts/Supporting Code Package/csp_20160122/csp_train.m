@@ -66,19 +66,24 @@ if (ndims(data_class1) == 2 && ndims(data_class2) == 2)
             return
     end
 elseif (ndims(data_class1) == 3 && ndims(data_class2) == 3)
+    if size(data_class1, 3) >= size(data_class2, 3)
+        num_trials = size(data_class2, 3);
+    elseif size(data_class1, 3) < size(data_class2, 3)
+        num_trials = size(data_class1, 3);
+    end
     switch method
         case 'ac shrinkage'
-            for cTrial = 1:size(data_class1,3)
+            for cTrial = 1:num_trials
                 S1(:,:,cTrial) = cov_shrink_ac(data_class1(:,:,cTrial),ac);
                 S2(:,:,cTrial) = cov_shrink_ac(data_class2(:,:,cTrial),ac);
             end
         case 'shrinkage'
-            for cTrial = 1:size(data_class1,3)
+            for cTrial = 1:num_trials
                 S1(:,:,cTrial) = cov_shrink(data_class1(:,:,cTrial));
                 S2(:,:,cTrial) = cov_shrink(data_class2(:,:,cTrial));
             end
         case 'standard'
-            for cTrial = 1:size(data_class1,3)
+            for cTrial = 1:num_trials
                 S1(:,:,cTrial) = cov(data_class1(:,:,cTrial));
                 S2(:,:,cTrial) = cov(data_class2(:,:,cTrial));
             end

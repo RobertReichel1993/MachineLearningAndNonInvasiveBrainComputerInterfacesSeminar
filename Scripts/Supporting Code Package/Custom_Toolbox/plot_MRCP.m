@@ -71,7 +71,7 @@ function [stuff] = plot_MRCP(data, triggers, classes, classes_idx, ...
         hold off
         xlabel('Time / s');
         ylabel('Potential / µV');
-        title(strcat('MRCP for foot movement on ', electrodes{1}));
+        title(strcat('MRCP for foot movement on ', electrodes{electrode}));
     end
     saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'jpeg');
     saveas(fig, fullfile('../Plots/', strcat(figtitle, ' Class 2')), 'fig');
@@ -89,7 +89,7 @@ function [stuff] = plot_MRCP(data, triggers, classes, classes_idx, ...
         hold off
         xlabel('Time / s');
         ylabel('Potential / µV');
-        title(strcat('MRCP for hand and foot movement on ', electrodes{1}));
+        title(strcat('MRCP for hand and foot movement on ', electrodes{electrode}));
     end
     text = "Blue ... Mean MRCP Hand movement" + newline + newline + ...
         "Light blue ... Standard error of Mean MRCP Hand movement" + newline + newline + ...
