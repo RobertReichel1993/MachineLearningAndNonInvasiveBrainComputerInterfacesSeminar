@@ -123,7 +123,7 @@ triggers_AC23(IdcsOfTaintedTrials) = [];
 trials_AC23(IdcsOfTaintedTrials)  = [];
 %%
 % Analysis of Data
-%{
+%%{
 %Patient AC21
 plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
     window_erds, ref_window, channels, eloc, fs, 'AC21');
@@ -133,7 +133,7 @@ plot_Analysis(data_AC22_erds, triggers_AC22, trials_AC22, window_mrcp, ...
 %Patient AC23
 plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
     window_erds, ref_window_AC23, channels, eloc, fs, 'AC23');
-%}
+%%}
 %%
 % Calculation of features in Time Domain
 downsample_fac = 16;
@@ -142,7 +142,7 @@ rep_fac = 10;
 kfold_fac = 5;
 freqs = [[8 12]; [10 14]; [14 19]; [17 22]; [20 25]; [23 28]; [26 31]];
 %%
-%{
+%%{
 %Patient AC21
 %%Calculating features
 %Calculating frequency domain features according to paper
@@ -214,10 +214,10 @@ save('..\Data\Features Patient AC21', 'features_class_1_AC21_avrfreq', ...
     'features_class_1_AC21_m1', 'features_class_2_AC21_m1', ...
     'features_class_1_AC21_m2', 'features_class_2_AC21_m2', ...
     'features_class_1_AC21_paper', 'features_class_2_AC21_paper');
-%}
+%%}
 %%
 %Patient AC22
-%{
+%%{
 %%Calculating features
 %Calculating frequency domain features according to paper
 [features_class_1_AC22_avrfreq, features_class_2_AC22_avrfreq] = calc_freq_features(data_AC22_erds, ...
@@ -288,7 +288,7 @@ save('..\Data\Features Patient AC22', 'features_class_1_AC22_avrfreq', ...
     'features_class_1_AC22_m1', 'features_class_2_AC22_m1', ...
     'features_class_1_AC22_m2', 'features_class_2_AC22_m2', ...
     'features_class_1_AC22_paper', 'features_class_2_AC22_paper');
-%}
+%%}
 %%
 %Patient AC23
 %%{
