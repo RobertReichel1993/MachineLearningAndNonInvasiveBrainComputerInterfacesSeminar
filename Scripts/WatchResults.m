@@ -130,6 +130,7 @@ bar(1, AC21_freq_paper);
 bar(2, AC21_freq_csp_all);
 bar(3, AC21_freq_csp_bins);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Paper Features', 'CSP Features, mean over all frequencies', ...
     'CSP Features, mean over frequency bins', 'Location', 'NorthWest');
@@ -140,14 +141,14 @@ bar(1, AC21_time_robert);
 bar(2, AC21_time_valeria);
 bar(3, AC21_time_paper);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Method Robert', 'Method Valeria', 'Method Paper', 'Location', 'NorthWest');
 saveas(fig, '../Plots/AC21_Results_classification', 'jpeg');
 saveas(fig, '../Plots/AC21_Results_classification', 'fig');
-
 %%
 %Patient AC22
-figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
     'Accuracies for Patien AC 22');
 title("Results for patient AC22");
 subplot(2, 1, 1);
@@ -157,6 +158,7 @@ bar(1, AC22_freq_paper);
 bar(2, AC22_freq_csp_all);
 bar(3, AC22_freq_csp_bins);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Paper Features', 'CSP Features, mean over all frequencies', ...
     'CSP Features, mean over frequency bins', 'Location', 'NorthWest');
@@ -167,6 +169,7 @@ bar(1, AC22_time_robert);
 bar(2, AC22_time_valeria);
 bar(3, AC22_time_paper);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Method Robert', 'Method Valeria', 'Method Paper', 'Location', 'NorthWest');
 saveas(fig, '../Plots/AC22_Results_classification', 'jpeg');
@@ -174,7 +177,7 @@ saveas(fig, '../Plots/AC22_Results_classification', 'fig');
 
 %%
 %Patient AC23
-figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
     'Accuracies for Patien AC 23, time domain');
 %Time domain, method paper
 subplot(3, 1, 1);
@@ -184,6 +187,7 @@ bar(1, AC23_time_paper_1_2);
 bar(2, AC23_time_paper_1_3);
 bar(3, AC23_time_paper_2_3);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 %Time domain, robert's paper
@@ -194,6 +198,7 @@ bar(1, AC23_time_robert_1_2);
 bar(2, AC23_time_robert_1_3);
 bar(3, AC23_time_robert_2_3);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 %Time domain, valeria's paper
@@ -204,13 +209,14 @@ bar(1, AC23_time_valeria_1_2);
 bar(2, AC23_time_valeria_1_3);
 bar(3, AC23_time_valeria_2_3);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 saveas(fig, '../Plots/AC23_Results_classification_timeDomain', 'jpeg');
 saveas(fig, '../Plots/AC23_Results_classification_timeDomain', 'fig');
 
 
-figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
     'Accuracies for Patien AC 23, frequency domain');
 %Frequency domain, method paper
 subplot(3, 1, 1);
@@ -220,6 +226,7 @@ bar(1, AC23_freq_paper_1_2);
 bar(2, AC23_freq_paper_1_3);
 bar(3, AC23_freq_paper_2_3);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 %Frequency domain, mean PSD across whole frequency domain filtered with CSP
@@ -230,6 +237,7 @@ bar(1, AC23_freq_csp_all_1_2);
 bar(2, AC23_freq_csp_all_1_3);
 bar(3, AC23_freq_csp_all_2_3);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 %Frequency domain, mean PSD across frequency bins filtered with CSP
@@ -240,6 +248,7 @@ bar(1, AC23_freq_csp_bins_1_2);
 bar(2, AC23_freq_csp_bins_1_2);
 bar(3, AC23_freq_csp_bins_1_2);
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 saveas(fig, '../Plots/AC23_Results_classification_frequencyDomain', 'jpeg');
@@ -277,7 +286,7 @@ AC23_c2 = vertcat(AC23_best_time_class2_23, AC23_best_freq_class2_23);
 [acc_AC23_class23] = permute_and_kfold(AC23_c1, AC23_c2, rep_fac, kfold_fac);
 
 %Visualizing results for concatenated features
-figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
     'Accuracies for combined features, frequency domain');
 %Frequency domain, method paper
 subplot(3, 1, 1);
@@ -285,12 +294,14 @@ title('Patient AC21');
 hold on;
 bar(1, mean(acc_AC21));
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 subplot(3, 1, 2);
 title('Patient AC21');
 hold on;
 bar(1, mean(acc_AC22));
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 subplot(3, 1, 3);
 title('Patient AC23');
@@ -299,7 +310,8 @@ bar(1, mean(acc_AC23_class12));
 bar(2, mean(acc_AC23_class13));
 bar(3, mean(acc_AC23_class23));
 hold off;
+ylim([0 100]);
 ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
-saveas(fig, '../Plots/Resulst_CombinedFeatures', 'jpeg');
-saveas(fig, '../Plots/Resulst_CombinedFeatures', 'fig');
+saveas(fig, '../Plots/Results_CombinedFeatures', 'jpeg');
+saveas(fig, '../Plots/Results_CombinedFeatures', 'fig');
