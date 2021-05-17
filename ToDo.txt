@@ -1,5 +1,0 @@
-ToDo:
-
-- Visualization of single feature classification
-
-- Then concatenate features of best performing methods
