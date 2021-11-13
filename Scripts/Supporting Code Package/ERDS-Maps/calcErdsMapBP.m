@@ -107,12 +107,9 @@ f_up = [f_up, f_borders(end) + f_bandwidths(end)/2];
 
 fn  = fs/2;
 
-%s passt, und s(:, chn) ist genau 1 channel
-
 for chn = 1:size(s,2)  % Loop over all channels
        
     if submean  % Subtract evoked components?
-        %s_t is empty!
         s_t = trigg(s(:, chn), h.TRIG(ismember(h.Classlabel, class)), round(t(1)*fs), round(t(3)*fs));
         temp = reshape(s_t, triallen, length(s_t)/triallen);  % Reshape to samples x trials
         average = mean(temp, 2);
@@ -145,12 +142,11 @@ for chn = 1:size(s,2)
     for k = 1:length(f_plot)  % Loop over frequency bands
         [b, a] = butter(n_butter, [f_low(k), f_up(k)]./fn);
         smooth_length = ceil(2*fs/f_low(k));
-        s_f = filtfilt(double(ones(1, smooth_length)/smooth_length), double(1), filtfilt(b, a, double(s(:,chn)).^2));
-
+        s_f = filtfilt(double(ones(1, smooth_length)/smooth_length), double(1), double(filtfilt(b, a, s(:,chn)).^2));
 
         % Trigger data
         s_t = trigg(s_f, h.TRIG(ismember(h.Classlabel, class)), round(t(1)*fs), round(t(3)*fs));
-
+        
         if strcmp(refmethod, 'classic')  % Use classical calculation scheme with trial-averaged reference
             % The variable pre_erds is needed for the bootstrap statistics, it contains the single-trial ERDS values
             % pre_erds{frequency band} = <time x trials>
@@ -194,8 +190,8 @@ for chn = 1:size(s,2)
                     smooth_length = ceil(2*fs/f_low(k));
                 end;
                 if smooth_length > 1
-                    ERDS_{chn}.cl(:,k) = filtfilt(double(ones(1, smooth_length)/smooth_length), 1.0, cl);
-                    ERDS_{chn}.cu(:,k) = filtfilt(double(ones(1, smooth_length)/smooth_length), 1.0, cu);
+                    ERDS_{chn}.cl(:,k) = filtfilt(double(ones(1, smooth_length)/smooth_length), double(1), cl);
+                    ERDS_{chn}.cu(:,k) = filtfilt(double(ones(1, smooth_length)/smooth_length), double(1), cu);
                 else
                     ERDS_{chn}.cl(:,k) = cl;
                     ERDS_{chn}.cu(:,k) = cu;

@@ -38,6 +38,7 @@ function [features_class_1, features_class_2] = get_csp_features(data, ...
     %Training CSP filter
     data_class_1 = permute(data_mat(:, classes_idx == classes(1), :), [1, 3, 2]);
     data_class_2 = permute(data_mat(:, classes_idx == classes(2), :), [1, 3, 2]);
+
     model = csp_train(data_class_1, data_class_2, 'shrinkage', 0.2);
     %Selecting filter parameters
     filters = logical([ones(1, num_filters) zeros(1, size(data_mat, 3) ...

@@ -40,9 +40,10 @@ function [psd, frange] = estimate_psd(data_hand, data_feet, fs, overlap)
     end
 
     frange = linspace(0, fs/2, ceil((fs+1) * overlap))'; % the x axis for the PSD plot
+    %frange = linspace(0, fs/2, ceil((fs+1)))'; % the x axis for the PSD plot
     if length(size_1) == 2 % if we're using concatenated data from all trials 
-        %psd = zeros(fs+1, 2, size_1(1)); % preallocation of psd
-        psd = zeros(ceil((fs+1) * overlap), 2, size_1(1)); % preallocation of psd
+        psd = zeros(fs+1, 2, size_1(1)); % preallocation of psd
+        %psd = zeros(ceil((fs+1) * overlap), 2, size_1(1)); % preallocation of psd
         
         for i = 1:size_1(2)
             data = [data_hand(:,i) data_feet(:,i)];
@@ -58,6 +59,8 @@ function [psd, frange] = estimate_psd(data_hand, data_feet, fs, overlap)
 
         for i = 1:size_1(1)
             for j = 1:size_1(3)
+                %Problem here because of left side is 65x2 and right side
+                %is 129x2
                 psd(:,:,i,j) = pwelch([data_hand(i,:,j); data_feet(i,:,j)]', fs, ceil(fs * overlap));
             end
         end

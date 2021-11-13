@@ -40,22 +40,19 @@ function [psd_mat] = plot_Bandpower(data, triggers, classes, classes_idx, ...
     data_class_2 = permute(data_class_2, [3, 1, 2]);
     
     psd_mat = zeros((fs / 2) + 1, 2, length(electrodes));
+    %psd_mat = zeros((fs + 1), 2, length(electrodes));
 
     %Estimating PSD and visualizing it (Plotting linear)
     fig = figure('units', 'normalized', 'outerposition', [0 0 1 1]);
     subplotmask = [2 3 4 5 6 8 9 10 11 12 13 14 16 17 18 20];
     for electrode = 1 : size(data, 2)
         subplot(3, 7, subplotmask(electrode));
-        
-        
-        
+
         [psd, frange] = estimate_psd(data_class_1(electrode, :, :), ...
             data_class_2(electrode, :, :), fs, 0.5);
         
         psd = 10.^(psd ./ 20);
-        
-        
-        
+
         psd_mat(:, :, electrode) = psd;
         plot(frange, psd(:, 1), frange,psd(:, 2), 'LineWidth', 2);
         title(electrodes{electrode});

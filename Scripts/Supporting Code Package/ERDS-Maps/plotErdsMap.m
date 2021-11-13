@@ -1,4 +1,4 @@
-function plotErdsMap(r, fname, plotting, varargin)
+function plotErdsMap(r, varargin)
 % Displays time-frequency (ERDS) maps.
 %
 % This function plots ERDS maps as calculated by calcErdsMap.m.
@@ -290,9 +290,6 @@ text(0, 0, temp_str, 'FontUnits', 'normalized', 'FontSize', 1/6, 'VerticalAlignm
 %for a = 1:length(hndl)
 %    set(findobj('parent', hndl(a)), 'ButtonDownFcn', 'zoomMap(r)');
 %end;
-if plotting
-    saveas(f, fname, 'jpeg');
-end
 
 end
 

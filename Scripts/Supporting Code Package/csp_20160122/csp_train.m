@@ -32,7 +32,7 @@
 %
 % Last modified: January-21-2016 by David Steyrl
 
-function model_csp = csp_train(data_class1,data_class2,method,ac)
+function model_csp = csp_train(data_class1, data_class2, method, ac)
 
 % Default covariance calculation method
 if (nargin == 2)

@@ -35,10 +35,12 @@ function [psd_mat] = estimate_psd_noclass(data, triggers, classes, classes_idx, 
     data_class_1 = data_mat(:, classes_idx == classes(1), :);
     data_class_2 = data_mat(:, classes_idx == classes(2), :);
 
-    psd_mat = zeros(((fs / 2) + 1), size(data_mat, 2), size(data_mat, 3));
+    psd_mat = zeros(ceil((fs + 1)/2), size(data_mat, 2), size(data_mat, 3));
     
     for trial = 1 : size(data_mat, 2)
         for electrode = 1 : size(data_mat, 3)
-            psd_mat(:, trial, electrode) = 20 * log10(pwelch(data_mat(:, trial, electrode), fs, 0.5));
+            %Somehow, pwelch does not decrease vector size and thus shits
+            %on my work
+            psd_mat(:, trial, electrode) = 20 * log10(pwelch(data_mat(:, trial, electrode), fs, fs/2));
     end
 end
