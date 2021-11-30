@@ -146,13 +146,13 @@ for cnt_trigger = 1 : 1%size(shift, 1)
 %         plot(fun(:, electrode));
 %     end
     %%
-    % Analysis of Data
-    %Patient AC21
+    %Analysis of Data
     if cnt_trigger == 1
         add_info = 'triggerAllignment';
     else
         add_info = 'endOfInstructionsAllignment';
     end
+    %Patient AC21
     plot_Analysis(data_AC21_erds, triggers_AC21, trials_AC21, window_mrcp, ...
         window_erds, ref_window, channels, eloc, fs, strcat('AC21_', add_info));
     %Patient AC22
@@ -162,8 +162,7 @@ for cnt_trigger = 1 : 1%size(shift, 1)
      plot_Analysis(data_AC23_erds, triggers_AC23, trials_AC23, window_mrcp, ...
          window_erds, ref_window_AC23, channels, eloc, fs, strcat('AC23_', add_info));
     %%
-    %%{
-    % Calculation of features in Time Domain
+    %Calculation of features in Time Domain
     downsample_fac = 16;
     p_val = 0.5;
     rep_fac = 10;
@@ -172,7 +171,7 @@ for cnt_trigger = 1 : 1%size(shift, 1)
     %%
     %%{
     %Patient AC21
-    %%Calculating features
+    %Calculating features
     %Calculating frequency domain features according to paper
     [features_class_1_AC21_avrfreq, features_class_2_AC21_avrfreq] = calc_freq_features(data_AC21_erds, ...
         triggers_AC21, [60 61], trials_AC21, window_erds, fs, freqs);
@@ -242,11 +241,9 @@ for cnt_trigger = 1 : 1%size(shift, 1)
         'features_class_1_AC21_m1', 'features_class_2_AC21_m1', ...
         'features_class_1_AC21_m2', 'features_class_2_AC21_m2', ...
         'features_class_1_AC21_paper', 'features_class_2_AC21_paper');
-    %%}
     %%
     %Patient AC22
-    %%{
-    %%Calculating features
+    %Calculating features
     %Calculating frequency domain features according to paper
     [features_class_1_AC22_avrfreq, features_class_2_AC22_avrfreq] = calc_freq_features(data_AC22_erds, ...
         triggers_AC22, [60 61], trials_AC22, window_erds, fs, freqs);
@@ -316,11 +313,9 @@ for cnt_trigger = 1 : 1%size(shift, 1)
         'features_class_1_AC22_m1', 'features_class_2_AC22_m1', ...
         'features_class_1_AC22_m2', 'features_class_2_AC22_m2', ...
         'features_class_1_AC22_paper', 'features_class_2_AC22_paper');
-    %%}
     %%
     %Patient AC23
-    %%{
-    %%Calculating features
+    %Calculating features
     %Calculating frequency domain features according to paper
     [features_class_1_AC23_avrfreq, features_class_2_AC23_avrfreq] = calc_freq_features(data_AC23_erds, ...
         triggers_AC23, [60 61], trials_AC23, window_erds, fs, freqs);
@@ -503,6 +498,5 @@ for cnt_trigger = 1 : 1%size(shift, 1)
         'features_class_1_AC23_paper_12', 'features_class_2_AC23_paper_12', ...
         'features_class_1_AC23_paper_13', 'features_class_3_AC23_paper_13', ...
         'features_class_2_AC23_paper_23', 'features_class_3_AC23_paper_23');
-    %%}
     %%}
 end
