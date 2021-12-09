@@ -297,7 +297,7 @@ hold off;
 ylim([0 100]);
 ylabel('Accuracy / Percent');
 subplot(3, 1, 2);
-title('Patient AC21');
+title('Patient AC22');
 hold on;
 bar(1, mean(acc_AC22));
 hold off;
@@ -315,3 +315,55 @@ ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 saveas(fig, '../Plots/Results_CombinedFeatures', 'jpeg');
 saveas(fig, '../Plots/Results_CombinedFeatures', 'fig');
+
+%%
+%Looking at common frequency domain feature analysis
+res_usual = load('..\Data\Results Usual CSP stuffendOfInstructionsAllignment.mat');
+accs_AC21 = res_usual.accs_AC21;
+accs_AC22 = res_usual.accs_AC22;
+accs_AC23_1_2 = res_usual.accs_AC23_1_2;
+accs_AC23_1_3 = res_usual.accs_AC23_1_3;
+accs_AC23_2_3 = res_usual.accs_AC23_2_3;
+bands_AC21 = res_usual.bands_AC21;
+bands_AC22 = res_usual.bands_AC22;
+bands_AC23_1_2 = res_usual.bands_AC23_1_2;
+bands_AC23_1_3 = res_usual.bands_AC23_1_3;
+bands_AC23_2_3 = res_usual.bands_AC23_2_3;
+num_bands = 2 : 2 : 16;
+%Visualizing results for usual analysis
+fig = figure('units', 'normalized', 'outerposition', [0 0 1 1], 'Name', ...
+    'Accuracies for CSP filtered bandpower');
+%Frequency domain, method paper
+subplot(3, 1, 1);
+title('Patient AC21');
+hold on;
+plot(num_bands, accs_AC21);
+hold off;
+ylim([0 100]);
+xlabel('Used CSP bands');
+ylabel('Accuracy / Percent');
+subplot(3, 1, 2);
+title('Patient AC22');
+hold on;
+plot(num_bands, accs_AC22);
+hold off;
+ylim([0 100]);
+xlabel('Used CSP bands');
+ylabel('Accuracy / Percent');
+subplot(3, 1, 3);
+title('Patient AC23');
+plot(num_bands, accs_AC23_1_2);
+hold on;
+plot(num_bands, accs_AC23_1_3);
+plot(num_bands, accs_AC23_2_3);
+hold off;
+ylim([0 100]);
+xlabel('Used CSP bands');
+ylabel('Accuracy / Percent');
+legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
+saveas(fig, '../Plots/Results_FilteredCSPBandpower', 'jpeg');
+saveas(fig, '../Plots/Results_FilteredCSPBandpower', 'fig');
+
+
+
+

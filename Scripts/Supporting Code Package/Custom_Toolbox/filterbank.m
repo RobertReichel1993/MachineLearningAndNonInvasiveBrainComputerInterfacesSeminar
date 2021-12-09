@@ -14,11 +14,13 @@
 %Output:
 %   sig_filtered ... The filtered signal split into the frequency bands
 %                   [number of datapoints] x [number of channels] x [number of frequency bands]
+%   freq_bands ..... The frequency bands the signal is split into for
+%                   easier further processing
 %
 %Dependencies: none
 
 
-function sig_filtered = filterbank(sig, num_bands, range, fs)
+function [sig_filtered, freq_bands] = filterbank(sig, num_bands, range, fs)
   %Creating frequency bands at which splits should happen
   freq_bands = linspace(range(1), range(2), num_bands + 1);
   %Preallocating space for filtered signals
