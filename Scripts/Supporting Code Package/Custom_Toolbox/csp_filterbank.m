@@ -59,6 +59,7 @@ function [features_class_1, features_class_2, freq_bands] = csp_filterbank(data,
     filt_sel = logical([ones(1, num_filters/2) zeros(1, data_dims(2) - num_filters) ones(1, num_filters/2)]);
     %Iterate over frequency bands and filter each band
     for band = 1 : num_bands
+        %Splitting works here
         csp_model = csp_train(data_class_1(:, :, :, band), data_class_2(:, :, :, band),...
         'shrinkage', 0.2);
         %Filter the data with the CSP

@@ -47,7 +47,6 @@ function [accuracy, bands, csps] = csp_analysis(data, ...
         features_class_2(train + 1 : end, :, :));               
     Y_test = [ones(size(features_class_1, 1) - train, 1); ...
         2 * ones(size(features_class_2, 1) - train, 1)];
-
     %% Training
     %Preallocating storage space for accuracies
     acc_mat = zeros(num_bands, rep_factor);
@@ -62,6 +61,8 @@ function [accuracy, bands, csps] = csp_analysis(data, ...
     end
     %Getting maximum of mean over columns (over repetitions)
     %Take two best bands!
+    %The dimensions match here!
+    %But there are Nans and shit in the acc_mat!!
     [~, inx] = sort(mean(acc_mat, 2), 'descend');
     
     X_tr_final = [X_train(:, :, inx(1)) X_train(:, :, inx(2))];
@@ -77,15 +78,21 @@ function [accuracy, bands, csps] = csp_analysis(data, ...
     accuracy = 100 * sum(predicted_classes == Y_test) / length(Y_test);
     %Getting the two best performing frequency bands
     best_band = inx(1:2);
+    best_band
     %Finding the frequency range of the bands and calculating the corner
     %frequencies
     band1 = freq_bands(best_band(1) : best_band(1) + 1);% ./ (fs/2);
     band2 = freq_bands(best_band(2) : best_band(2) + 1);% ./ (fs/2);
+    band1
+    band2
     %Calculating CSP weights (Check if they are right!!!!)
     csp_mat_low = csp_train(squeeze(features_class_1(:, :, best_band(1), :)), ...
             squeeze(features_class_2(:, :, best_band(1), :)), 'shrinkage', 0.2);
     csp_mat_high = csp_train(squeeze(features_class_1(:, :, best_band(2), :)), ...
         squeeze(features_class_2(:, :, best_band(2), :)), 'shrinkage', 0.2);
+    
+    csp_mat_low
+    csp_mat_high
 
     bands = [band1 band2];
     csps = cat(3, csp_mat_low, csp_mat_high);

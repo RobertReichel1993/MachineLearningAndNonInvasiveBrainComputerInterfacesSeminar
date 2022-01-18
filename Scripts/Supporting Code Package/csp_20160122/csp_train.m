@@ -78,6 +78,7 @@ elseif (ndims(data_class1) == 3 && ndims(data_class2) == 3)
                 S2(:,:,cTrial) = cov_shrink_ac(data_class2(:,:,cTrial),ac);
             end
         case 'shrinkage'
+            %We are in shrinkage
             for cTrial = 1:num_trials
                 S1(:,:,cTrial) = cov_shrink(data_class1(:,:,cTrial));
                 S2(:,:,cTrial) = cov_shrink(data_class2(:,:,cTrial));
@@ -108,6 +109,8 @@ S2_avg = mean(S2,3);
 % Normalize the covariance matrices by the trace
 S1_n = S1_avg/trace(S1_avg);
 S2_n = S2_avg/trace(S2_avg);
+
+%Size of matrixes is ok, but nans in the matrices
 
 % Solve the eigen value problem
 [V, D] = eig(S1_n,S1_n+S2_n,'qz');

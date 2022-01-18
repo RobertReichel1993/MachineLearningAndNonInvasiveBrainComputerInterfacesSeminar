@@ -14,20 +14,20 @@ addpath('Supporting Code Package\csp_20160122');
 time_vec = {'m1', 'm2', 'paper'};
 freq_vec = {'avrfreq', 'csp_all', 'csp_bins'};
 %Loading results
-res_AC21 = load('..\Data\Results Patient AC21.mat');
-res_AC22 = load('..\Data\Results Patient AC22.mat');
-res_AC23 = load('..\Data\Results Patient AC23.mat');
+res_AC21 = load('..\Data\Results Patient AC21endOfInstructionsAllignment.mat');
+res_AC22 = load('..\Data\Results Patient AC22endOfInstructionsAllignment.mat');
+res_AC23 = load('..\Data\Results Patient AC23endOfInstructionsAllignment.mat');
 %Loading features
-feat_AC21 = load('..\Data\Features Patient AC21.mat');
-feat_AC22 = load('..\Data\Features Patient AC22.mat');
-feat_AC23 = load('..\Data\Features Patient AC23.mat');
+feat_AC21 = load('..\Data\Features Patient AC21endOfInstructionsAllignment.mat');
+feat_AC22 = load('..\Data\Features Patient AC22endOfInstructionsAllignment.mat');
+feat_AC23 = load('..\Data\Features Patient AC23endOfInstructionsAllignment.mat');
 %Patient AC21
-AC21_freq_paper = mean(res_AC21.acc_AC21_freq_paper);
-AC21_freq_csp_all = mean(res_AC21.acc_AC21_freq_csp_all);
-AC21_freq_csp_bins = mean(res_AC21.acc_AC21_freq_csp_bins);
-AC21_time_robert = mean(res_AC21.acc_AC21_time_robert);
-AC21_time_valeria = mean(res_AC21.acc_AC21_time_valeria);
-AC21_time_paper = mean(res_AC21.acc_AC21_time_paper);
+AC21_freq_paper = mean(res_AC21.acc_AC21_freq_paper_class_1_2);
+AC21_freq_csp_all = mean(res_AC21.acc_AC21_freq_csp_class_1_2_all);
+AC21_freq_csp_bins = mean(res_AC21.acc_AC21_freq_csp_class_1_2_bins);
+AC21_time_robert = mean(res_AC21.acc_AC21_time_robert_class_1_2);
+AC21_time_valeria = mean(res_AC21.acc_AC21_time_valeria_class_1_2);
+AC21_time_paper = mean(res_AC21.acc_AC21_time_paper_class_1_2);
 %Getting best performing methods
 [~, idx] = max([AC21_freq_paper, AC21_freq_csp_all, AC21_freq_csp_bins]);
 AC21_max_freq = freq_vec(idx);
@@ -36,19 +36,19 @@ AC21_max_time = time_vec(idx);
 %Getting best features from methods
 AC21_best_freq_class1 = feat_AC21.(strcat("features_class_1_AC21_", AC21_max_freq));
 AC21_best_freq_class2 = feat_AC21.(strcat("features_class_2_AC21_", AC21_max_freq));
-AC21_best_time_class1 = feat_AC21.(strcat("features_class_1_AC21_", AC21_max_time));
-AC21_best_time_class2 = feat_AC21.(strcat("features_class_2_AC21_", AC21_max_time));
+AC21_best_time_class1 = feat_AC21.(strcat("features_class_1_AC21_", AC21_max_time, '_12'));
+AC21_best_time_class2 = feat_AC21.(strcat("features_class_2_AC21_", AC21_max_time, '_12'));
 
 
 
 
 %Patient AC22
-AC22_freq_paper = mean(res_AC22.acc_AC22_freq_paper);
-AC22_freq_csp_all = mean(res_AC22.acc_AC22_freq_csp_all);
-AC22_freq_csp_bins = mean(res_AC22.acc_AC22_freq_csp_bins);
-AC22_time_robert = mean(res_AC22.acc_AC22_time_robert);
-AC22_time_valeria = mean(res_AC22.acc_AC22_time_valeria);
-AC22_time_paper = mean(res_AC22.acc_AC22_time_paper);
+AC22_freq_paper = mean(res_AC22.acc_AC22_freq_paper_class_1_2);
+AC22_freq_csp_all = mean(res_AC22.acc_AC22_freq_csp_class_1_2_all);
+AC22_freq_csp_bins = mean(res_AC22.acc_AC22_freq_csp_class_1_2_bins);
+AC22_time_robert = mean(res_AC22.acc_AC22_time_robert_class_1_2);
+AC22_time_valeria = mean(res_AC22.acc_AC22_time_valeria_class_1_2);
+AC22_time_paper = mean(res_AC22.acc_AC22_time_paper_class_1_2);
 %Getting best performing methods
 [~, idx] = max([AC22_freq_paper, AC22_freq_csp_all, AC22_freq_csp_bins]);
 AC22_max_freq = freq_vec(idx);
@@ -57,8 +57,8 @@ AC22_max_time = time_vec(idx);
 %Getting best features from methods
 AC22_best_freq_class1 = feat_AC22.(strcat("features_class_1_AC22_", AC22_max_freq));
 AC22_best_freq_class2 = feat_AC22.(strcat("features_class_2_AC22_", AC22_max_freq));
-AC22_best_time_class1 = feat_AC22.(strcat("features_class_1_AC22_", AC22_max_time));
-AC22_best_time_class2 = feat_AC22.(strcat("features_class_2_AC22_", AC22_max_time));
+AC22_best_time_class1 = feat_AC22.(strcat("features_class_1_AC22_", AC22_max_time, '_12'));
+AC22_best_time_class2 = feat_AC22.(strcat("features_class_2_AC22_", AC22_max_time, '_12'));
 
 
 
@@ -319,13 +319,13 @@ saveas(fig, '../Plots/Results_CombinedFeatures', 'fig');
 %%
 %Looking at common frequency domain feature analysis
 res_usual = load('..\Data\Results Usual CSP stuffendOfInstructionsAllignment.mat');
-accs_AC21 = res_usual.accs_AC21;
-accs_AC22 = res_usual.accs_AC22;
+accs_AC21 = res_usual.accs_AC21_1_2;
+accs_AC22 = res_usual.accs_AC22_1_2;
 accs_AC23_1_2 = res_usual.accs_AC23_1_2;
 accs_AC23_1_3 = res_usual.accs_AC23_1_3;
 accs_AC23_2_3 = res_usual.accs_AC23_2_3;
-bands_AC21 = res_usual.bands_AC21;
-bands_AC22 = res_usual.bands_AC22;
+bands_AC21 = res_usual.bands_AC21_1_2;
+bands_AC22 = res_usual.bands_AC22_1_2;
 bands_AC23_1_2 = res_usual.bands_AC23_1_2;
 bands_AC23_1_3 = res_usual.bands_AC23_1_3;
 bands_AC23_2_3 = res_usual.bands_AC23_2_3;
@@ -363,7 +363,3 @@ ylabel('Accuracy / Percent');
 legend('Class 1 and 2', 'Class 1 and 3', 'Class 2 and 3', 'Location', 'NorthWest');
 saveas(fig, '../Plots/Results_FilteredCSPBandpower', 'jpeg');
 saveas(fig, '../Plots/Results_FilteredCSPBandpower', 'fig');
-
-
-
-
